@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    acessorios
+{% endblock %}
+
+{% block pageTitle %}
+    Adicionar acessorio
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">Acessorios</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <form method="post" action="">
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label for="dress_name">Nome</label>
+                            <input type="text" class="form-control" id="dress_name" name="name" placeholder="Adicione um nome">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select class="form-control select2bs4" name="category" style="width: 100%;">
+                                <option selected="selected">selecione uma categoria</option>
+                                <option>Princesa</option>
+                                <option>Sereia</option>
+                                <option>Fluido</option>
+                                <option>FormaA</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Detalhes</label>
+                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                                    style="width: 100%;">
+                                <option>Alabama</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Cor</label>
+                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                                    style="width: 100%;">
+                                <option>Alabama</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>Tamanho</label>
+                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                                    style="width: 100%;">
+                                <option>Alabama</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <label for="dress_description">Descrição</label>
+                            <textarea class="form-control" id="dress_description" rows="3" name="description"
+                                      placeholder="Adicione uma descrição"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Criar</button>
+                <a href="{{ path('accessory_list') }}" class="btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <!-- dropzonejs -->
+    <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('custom/js/product/add.js') }}"></script>
+{% endblock %}

@@ -10,7 +10,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>
         {% block title %}AdminLTE 3 | Starter
         {% endblock %}
+
     </title>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -235,15 +237,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-                    <li class="nav-item">
-                        <a href="{{ path('dress_list') }}" class="nav-link
-                    {% if app.request.get('_route') == 'dress_list' %} active {% endif %}
-                    ">
+                    {% set isDressMenuOpen = app.request.get('_route') in ['dress_list', 'dress_new'] %}
+                    <li class="nav-item {% if isDressMenuOpen %} menu-open {% endif %}">
+                        <a href="" class="nav-link {% if isDressMenuOpen %}active{% endif %}">
                             <i class="nav-icon fas fa-archive"></i>
                             <p>
-                                Produtos
+                             Vestidos
                             </p>
+                            <i class="right fas fa-angle-left"></i>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ path('dress_list') }}" class="nav-link
+                                {% if app.request.get('_route') == 'dress_list' %} active {% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Listar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('dress_new') }}" class="nav-link
+                                {% if app.request.get('_route') == 'dress_new' %} active {% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Novo</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    {% set isAccessoryMenuOpen = app.request.get('_route') in ['accessory_list', 'accessory_new'] %}
+                    <li class="nav-item {% if isAccessoryMenuOpen %} menu-open {% endif %}">
+                        <a href="" class="nav-link {% if isAccessoryMenuOpen %}active{% endif %}">
+                            <i class="nav-icon fas fa-archive"></i>
+                            <p>
+                               Acessorios
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ path('accessory_list') }}" class="nav-link
+                                {% if app.request.get('_route') == 'accessory_list' %} active {% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Listar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('accessory_new') }}" class="nav-link
+                                {% if app.request.get('_route') == 'accessory_new' %} active {% endif %}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Novo</p>
+                                </a>
+                            </li>
+                        </ul>
 
                     </li>
                     <li class="nav-item">
