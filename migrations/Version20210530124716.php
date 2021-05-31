@@ -43,8 +43,11 @@ CREATE TABLE accessory (
     name VARCHAR(255),
     price DOUBLE(10 , 2 ),
     size VARCHAR(5),
+    accessory_category_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (accessory_category_id)
+        REFERENCES accessory_category (id)
 );
 
 CREATE TABLE dress_category (
