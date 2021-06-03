@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\AccessoryRepository;
+use App\Repository\DressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=AccessoryRepository::class)
+ * @ORM\Entity(repositoryClass=DressRepository::class)
  */
-class Accessory
+class Dress
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class Accessory
     private $name;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float",nullable=true)
      */
     private $price;
 
@@ -35,35 +35,41 @@ class Accessory
     private $size;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AccessoryCategory::class, inversedBy="accessories")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DressCategory::class, inversedBy="dresses")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $accessoryCategory;
+    private $dressCategory;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updateAt;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Color::class, inversedBy="accessories")
+     * @ORM\ManyToMany(targetEntity=Color::class, inversedBy="dresses")
      */
     private $colors;
 
     /**
-     * @ORM\ManyToMany(targetEntity=detail::class, inversedBy="accessories")
+     * @ORM\ManyToMany(targetEntity=Detail::class, inversedBy="dresses")
      */
     private $details;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DressImage::class, mappedBy="dress")
+     */
+    private $dressImages;
 
     public function __construct()
     {
         $this->colors = new ArrayCollection();
         $this->details = new ArrayCollection();
+        $this->dressImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,7 +94,7 @@ class Accessory
         return $this->price;
     }
 
-    public function setPrice(?float $price): self
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
@@ -107,38 +113,38 @@ class Accessory
         return $this;
     }
 
-    public function getAccessoryCategory(): ?AccessoryCategory
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->accessoryCategory;
+        return $this->createdAt;
     }
 
-    public function setAccessoryCategory(?AccessoryCategory $accessoryCategory): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->accessoryCategory = $accessoryCategory;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->createAt;
+        return $this->updatedAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $createAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->createAt = $createAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getDressCategory(): ?DressCategory
     {
-        return $this->updateAt;
+        return $this->dressCategory;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setDressCategory(?DressCategory $dressCategory): self
     {
-        $this->updateAt = $updateAt;
+        $this->dressCategory = $dressCategory;
 
         return $this;
     }
@@ -168,14 +174,14 @@ class Accessory
     }
 
     /**
-     * @return Collection|detail[]
+     * @return Collection|Detail[]
      */
     public function getDetails(): Collection
     {
         return $this->details;
     }
 
-    public function addDetail(detail $detail): self
+    public function addDetail(Detail $detail): self
     {
         if (!$this->details->contains($detail)) {
             $this->details[] = $detail;
@@ -184,9 +190,39 @@ class Accessory
         return $this;
     }
 
-    public function removeDetail(detail $detail): self
+    public function removeDetail(Detail $detail): self
     {
         $this->details->removeElement($detail);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DressImage[]
+     */
+    public function getDressImages(): Collection
+    {
+        return $this->dressImages;
+    }
+
+    public function addDressImage(DressImage $dressImage): self
+    {
+        if (!$this->dressImages->contains($dressImage)) {
+            $this->dressImages[] = $dressImage;
+            $dressImage->setDress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDressImage(DressImage $dressImage): self
+    {
+        if ($this->dressImages->removeElement($dressImage)) {
+            // set the owning side to null (unless already changed)
+            if ($dressImage->getDress() === $this) {
+                $dressImage->setDress(null);
+            }
+        }
 
         return $this;
     }
