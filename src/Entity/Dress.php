@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DressRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,9 +31,9 @@ class Dress
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
      */
-    private $size;
+    private $description;
 
     /**
      * @ORM\Column(type="datetime")
@@ -65,11 +66,20 @@ class Dress
      */
     private $dressImages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Size::class, inversedBy="dresses")
+     */
+    private $sizes;
+
     public function __construct()
     {
         $this->colors = new ArrayCollection();
         $this->details = new ArrayCollection();
         $this->dressImages = new ArrayCollection();
+
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
+        $this->sizes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,18 +107,6 @@ class Dress
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): self
-    {
-        $this->size = $size;
 
         return $this;
     }
@@ -223,6 +221,47 @@ class Dress
                 $dressImage->setDress(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Size[]
+     */
+    public function getSizes(): Collection
+    {
+        return $this->sizes;
+    }
+
+    public function addSize(Size $size): self
+    {
+        if (!$this->sizes->contains($size)) {
+            $this->sizes[] = $size;
+        }
+
+        return $this;
+    }
+
+    public function removeSize(Size $size): self
+    {
+        $this->sizes->removeElement($size);
 
         return $this;
     }

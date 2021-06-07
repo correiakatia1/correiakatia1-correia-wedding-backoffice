@@ -43,6 +43,7 @@ CREATE TABLE accessory (
     name VARCHAR(255),
     price DOUBLE(10 , 2 ),
     size VARCHAR(5),
+    description TEXT,
     accessory_category_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -61,7 +62,7 @@ CREATE TABLE dress (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     price DOUBLE(10 , 2 ),
-    size VARCHAR(5) NOT NULL,
+    description TEXT,
     dress_category_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -167,8 +168,19 @@ CREATE TABLE accessory_promotion (
     FOREIGN KEY (promotion_id)
         REFERENCES promotion (id)
 );
-"
-        );
+
+CREATE  TABLE size(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE dress_size(
+    dress_id INT NOT NULL,
+    size_id INT NOT NULL,
+    FOREIGN KEY (dress_id) REFERENCES dress(id),
+    FOREIGN KEY (size_id) REFERENCES size(id)
+);
+");
     }
 
     public function down(Schema $schema): void

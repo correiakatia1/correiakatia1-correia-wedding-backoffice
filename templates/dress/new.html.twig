@@ -32,64 +32,61 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <!-- text input -->
+
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="dress_name">Nome</label>
-                            <input type="text" class="form-control" id="dress_name" name="name" placeholder="Adicione um nome">
+                            <input type="text" class="form-control" id="dress_name" name="name"
+                                   placeholder="Adicione um nome">
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Categoria</label>
                             <select class="form-control select2bs4" name="category" style="width: 100%;">
-                                <option selected="selected">selecione uma categoria</option>
-                                <option>Princesa</option>
-                                <option>Sereia</option>
-                                <option>Fluido</option>
-                                <option>FormaA</option>
+                                {% for dressCategory in dressCategories %}
+                                    <option value="{{ dressCategory.id }}">{{ dressCategory.name }}</option>
+                                {% endfor %}
                             </select>
 
                         </div>
                         <div class="form-group">
                             <label>Detalhes</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                            <select class="select2bs4" multiple="multiple" name="details[]"
+                                    data-placeholder="Selecione os detalhes"
                                     style="width: 100%;">
-                                <option>Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                {% for detail in details %}
+                                    <option value="{{ detail.id }}">{{ detail.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label>Preço</label>
+                            <input class="form-control" name="price"
+                                   placeholder="Adicione um preço"
+                                   style="width: 100%;">
+                        </div>
+                        <div class="form-group">
                             <label>Cor</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                            <select class="select2bs4" multiple="multiple" name="colors[]"
+                                    data-placeholder="Selecione uma cor"
                                     style="width: 100%;">
-                                <option>Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                {% for color in colors %}
+                                    <option value="{{ color.id }}">{{ color.code }}</option>
+                                {% endfor %}
+
                             </select>
                         </div>
                         <!-- /.form-group -->
                         <div class="form-group">
                             <label>Tamanho</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                            <select class="select2bs4" multiple="multiple" name="sizes[]"
+                                    data-placeholder="Selecione um tamanho"
                                     style="width: 100%;">
-                                <option>XS</option>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
+                                {% for size in sizes %}
+                                <option value="{{ size.id }}">{{ size.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>

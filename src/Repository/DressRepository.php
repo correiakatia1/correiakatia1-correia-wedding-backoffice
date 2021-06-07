@@ -19,32 +19,14 @@ class DressRepository extends ServiceEntityRepository
         parent::__construct($registry, Dress::class);
     }
 
-    // /**
-    //  * @return Dress[] Returns an array of Dress objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Dress $dress
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function create(Dress $dress)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($dress);
+        $this->getEntityManager()->flush();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Dress
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
