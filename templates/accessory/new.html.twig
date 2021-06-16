@@ -36,25 +36,29 @@
                             <label>Categoria</label>
                             <select class="form-control select2bs4" name="category">
 
-                                <option selected="selected">selecione uma categoria</option>
-                                <option>Princesa</option>
-                                <option>Sereia</option>
-                                <option>Fluido</option>
-                                <option>FormaA</option>
+                                <option disabled selected>selecione uma categoria</option>
+                                {% for accessoryCategory in accessoryCategories %}
+                                    <option value="{{ accessoryCategory.id }}"
+                                            {% if accessory.accessoryCategory and accessoryCategory.id == accessory.accessoryCategory.id %}selected{% endif %}>
+                                        {{ accessoryCategory.name }}
+                                    </option>
+                                {% endfor %}
                             </select>
 
                         </div>
                         <div class="form-group">
                             <label>Detalhes</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                            <select class="select2bs4" multiple="multiple" name="details[]"
+                                    data-placeholder="Selecione os detalhes"
                                     style="width: 100%;">
-                                <option>Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                {% for detail in details %}
+                                    <option value="{{ detail.id }}"
+                                            {% if accessory.details and accessory.details.contains(detail) %}selected{% endif %}
+                                    >
+                                        {{ detail.name }}
+                                    </option>
+                                {% endfor %}
+
                             </select>
                         </div>
 
@@ -62,30 +66,25 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Cor</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
+                            <select class="select2bs4" multiple="multiple" name="colors[]"
+                                    data-placeholder="Selecione uma cor"
                                     style="width: 100%;">
-                                <option>Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                {% for color in colors %}
+                                    <option value="{{ color.id }}"
+                                            {% if accessory.colors and accessory.colors.contains(color) %}selected{% endif %}
+                                    >
+                                        {{ color.code }}
+                                    </option>
+                                {% endfor %}
+
                             </select>
                         </div>
                         <!-- /.form-group -->
                         <div class="form-group">
                             <label>Preço</label>
-                            <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
-                                    style="width: 100%;">
-                                <option>Alabama</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
-                            </select>
+                            <input
+                                    class="form-control w-100" name="price"
+                                    placeholder="Select a State">
                         </div>
                     </div>
                     <div class="col-12">
