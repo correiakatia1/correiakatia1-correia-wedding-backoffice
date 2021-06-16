@@ -237,7 +237,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-                    {% set isDressMenuOpen = app.request.get('_route') in ['dress_list', 'dress_new'] %}
+                    {% set isDressMenuOpen = app.request.get('_route') in ['dress_list', 'dress_new','dress_update'] %}
                     <li class="nav-item {% if isDressMenuOpen %} menu-open {% endif %}">
                         <a href="" class="nav-link {% if isDressMenuOpen %}active{% endif %}">
                             <i class="nav-icon fas fa-archive"></i>

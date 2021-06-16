@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Dress;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,12 +23,21 @@ class DressRepository extends ServiceEntityRepository
 
     /**
      * @param Dress $dress
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(Dress $dress)
     {
         $this->getEntityManager()->persist($dress);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function flush()
+    {
         $this->getEntityManager()->flush();
     }
 }

@@ -17,15 +17,6 @@
     <div class="card card-default">
         <div class="card-header">
             <h3 class="card-title">Acessorios</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
         </div>
         <form method="post" action="">
             <!-- /.card-header -->
@@ -36,13 +27,15 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label for="dress_name">Nome</label>
-                            <input type="text" class="form-control" id="dress_name" name="name" placeholder="Adicione um nome">
+                            <input type="text" class="form-control" id="dress_name" name="name"
+                                   placeholder="Adicione um nome" value="{{ accessory.name }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Categoria</label>
-                            <select class="form-control select2bs4" name="category" style="width: 100%;">
+                            <select class="form-control select2bs4" name="category">
+
                                 <option selected="selected">selecione uma categoria</option>
                                 <option>Princesa</option>
                                 <option>Sereia</option>
@@ -82,7 +75,7 @@
                         </div>
                         <!-- /.form-group -->
                         <div class="form-group">
-                            <label>Tamanho</label>
+                            <label>Preço</label>
                             <select class="select2bs4" multiple="multiple" name="color" data-placeholder="Select a State"
                                     style="width: 100%;">
                                 <option>Alabama</option>

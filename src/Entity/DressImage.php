@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DressImage
 {
+    public const MIME_TYPES = [
+        'image/png' => 'png'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

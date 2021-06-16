@@ -25,7 +25,8 @@
                     <th>Nome</th>
                     <th>Preço</th>
                     <th>Tamanho</th>
-                    <th>DEtallhes</th>
+                    <th>Detalhes</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,14 @@
                             {% for detail in dress.details %}
                                 {{ detail.name }}
                             {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ path('dress_update', {'dressId': dress.id }) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

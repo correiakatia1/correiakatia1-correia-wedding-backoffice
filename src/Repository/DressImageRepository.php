@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\DressImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,23 @@ class DressImageRepository extends ServiceEntityRepository
         parent::__construct($registry, DressImage::class);
     }
 
-    // /**
-    //  * @return DressImage[] Returns an array of DressImage objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param DressImage $dress
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function create(DressImage $dress)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($dress);
+        $this->getEntityManager()->flush();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?DressImage
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function flush()
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->getEntityManager()->flush();
     }
-    */
 }

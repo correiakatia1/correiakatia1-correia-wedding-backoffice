@@ -171,6 +171,11 @@ class Dress
         return $this;
     }
 
+    public function resetColor()
+    {
+        $this->colors = new ArrayCollection();
+    }
+
     /**
      * @return Collection|Detail[]
      */
@@ -193,6 +198,11 @@ class Dress
         $this->details->removeElement($detail);
 
         return $this;
+    }
+
+    public function resetDetails()
+    {
+        $this->details = new ArrayCollection();
     }
 
     /**
@@ -264,5 +274,10 @@ class Dress
         $this->sizes->removeElement($size);
 
         return $this;
+    }
+
+    public function resetSize()
+    {
+        $this->sizes = new ArrayCollection();
     }
 }
