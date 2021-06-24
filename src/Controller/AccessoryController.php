@@ -45,12 +45,6 @@ class AccessoryController extends AbstractController
      */
     private $accessoryImageRepository;
 
-
-    /**
-     * @var AccessoryImageRepository
-     */
-    private $accessoryImageRepository;
-
     /**
      * KernelInterface $appKernel
      */
