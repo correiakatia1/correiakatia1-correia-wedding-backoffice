@@ -1,17 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    acessorios
+    {% if accessory.id %}
+        Editar
+    {% else %}
+        Adicionar
+    {% endif %}
+
+    Vestido
 {% endblock %}
 
-{% block pageTitle %}
-    Adicionar acessorio
-{% endblock %}
+{#{% block pageTitle %}#}
+{#    Adicionar acessorio#}
+{#{% endblock %}#}
 
 {% block style %}
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css') }}">
 {% endblock %}
+
 
 {% block body %}
     <div class="card card-default">
@@ -87,14 +95,7 @@
                                     placeholder="Select a State">
                         </div>
                     </div>
-                    <div class="col-12">
-                        <!-- textarea -->
-                        <div class="form-group">
-                            <label for="dress_description">Descrição</label>
-                            <textarea class="form-control" id="dress_description" rows="3" name="description"
-                                      placeholder="Adicione uma descrição"></textarea>
-                        </div>
-                    </div>
+
                     <div class="col-12">
 
                     </div>
@@ -102,17 +103,73 @@
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Criar</button>
+                <button type="submit" class="btn btn-primary">
+                    {% if accessory.id %}
+                        Guardar
+                    {% else %}
+                        Criar
+                    {% endif %}
+                </button>
                 <a href="{{ path('accessory_list') }}" class="btn">Cancelar</a>
             </div>
         </form>
     </div>
 
+    {% if accessory.id %}
+<div class="card card-default" id="image-card">
+    <form method="post" action="{{ path('accessory_upload_images', {'accessoryId': accessory.id}) }}" enctype="multipart/form-data">
+
+        <div class="card-header">
+            <h3 class="card-title">Imagens do acessorio</h3>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            {% for accessoryImage in accessory.accessoryImages %}
+                            <div class="col-sm-4">
+                                <a href="{{ accessoryImage.name }}"
+                                   data-toggle="lightbox" data-gallery="gallery">
+                                    <img src="{{ accessoryImage.name }}"
+                                         class="img-fluid mb-2" alt="white sample"/>
+                                </a>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" multiple id="accessory-image"
+                                       name="images[]">
+                                <label class="custom-file-label" for="accessory-image">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                Guardar
+            </button>
+            <a href="{{ path('accessory_list') }}" class="btn">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+    {% endif %}
 {% endblock %}
 
 {% block script %}
     <!-- dropzonejs -->
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
     <script src="{{ asset('custom/js/product/add.js') }}"></script>
 {% endblock %}

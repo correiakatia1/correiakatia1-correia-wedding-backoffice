@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Produtos
+    Vestidos
 {% endblock %}
 
 {% block pageTitle %}
-    Lista de productos
+    Lista de vestidos
 {% endblock %}
 
  {% block style %}
      <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" xmlns="">
      <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
      <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+     <link rel="stylesheet" href="/custom/css/style.css">
 
  {% endblock %}
 
@@ -23,9 +24,11 @@
                 <tr>
                     <th>Id</th>
                     <th>Nome</th>
+                    <th>categoria</th>
                     <th>Preço</th>
                     <th>Tamanho</th>
                     <th>Detalhes</th>
+                    <th>Cor</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,6 +37,7 @@
                     <tr>
                         <td>{{ dress.id }}</td>
                         <td>{{ dress.name }}</td>
+                        <td>{{ dress.dressCategory.name }}</td>
                         <td>{{ dress.price }}</td>
                         <td>
                             {% for size in dress.sizes %}
@@ -45,12 +49,23 @@
                                 {{ detail.name }}
                             {% endfor %}
                         </td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                {% for color in dress.colors %}
+                                    <div class="circle-color" style="background-color: {{ color.code }}"></div>
+                                {% endfor %}
+                                </div>
+                            </td>
+
                         <td>
                             <a href="{{ path('dress_update', {'dressId': dress.id }) }}">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="">
+                            <a class="show-confirm-delete">
                                 <i class="fas fa-trash-alt"></i>
+
+                                <form class="delete-form" action="{{ path('dress_delete',  {'dressId': dress.id }) }}" method="post">
+                                </form>
                             </a>
                         </td>
                     </tr>

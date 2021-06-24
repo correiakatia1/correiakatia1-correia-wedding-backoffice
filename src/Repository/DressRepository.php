@@ -33,6 +33,14 @@ class DressRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Dress $dress
+     * @throws ORMException
+     */
+    public function remove(Dress $dress) {
+        $this->getEntityManager()->remove($dress);
+    }
+
+    /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
