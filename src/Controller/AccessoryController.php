@@ -45,6 +45,12 @@ class AccessoryController extends AbstractController
      */
     private $accessoryImageRepository;
 
+
+    /**
+     * @var AccessoryImageRepository
+     */
+    private $accessoryImageRepository;
+
     /**
      * KernelInterface $appKernel
      */
@@ -204,7 +210,6 @@ class AccessoryController extends AbstractController
         return $this->redirectToRoute('accessory_update', ['accessoryId' => $accessory->getId()]);
     }
 
-
     /**
      * @Route("/accessory/delete/{accessoryId}", name="accessory_delete", methods={"POST"})
      * @throws ORMException
@@ -234,10 +239,4 @@ class AccessoryController extends AbstractController
 
         return $this->redirectToRoute('accessory_list');
     }
-
-
-
-
-
-
 }

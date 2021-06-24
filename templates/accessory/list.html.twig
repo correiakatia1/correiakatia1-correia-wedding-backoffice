@@ -56,15 +56,13 @@
                             <a href="{{ path('accessory_update', {'accessoryId': accessory.id }) }}">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a  class="show-confirm-delete pointer">
+                            <a class="show-confirm-delete pointer">
                                 <i class="fas fa-trash-alt"></i>
-
                                 <form class="delete-form" action="{{ path('accessory_delete',  {'accessoryId': accessory.id }) }}" method="post">
                                 </form>
                             </a>
                         </td>
                     </tr>
-
                 {% endfor %}
                 </tbody>
             </table>

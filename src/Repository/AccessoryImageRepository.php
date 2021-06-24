@@ -63,6 +63,7 @@ class AccessoryImageRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->flush();
     }
+
     /**
      * @param AccessoryImage $accessoryImage
      * @throws ORMException

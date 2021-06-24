@@ -230,7 +230,6 @@ class Accessory
         return $this;
     }
 
-
     public function resetColor()
     {
         $this->colors = new ArrayCollection();

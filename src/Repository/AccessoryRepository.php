@@ -31,9 +31,6 @@ class AccessoryRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($accessory);
         $this->getEntityManager()->flush();
     }
-    public function remove(Accessory $accessory) {
-        $this->getEntityManager()->remove($accessory);
-    }
 
     /**
      * @throws ORMException
@@ -42,5 +39,9 @@ class AccessoryRepository extends ServiceEntityRepository
     public function flush()
     {
         $this->getEntityManager()->flush();
+    }
+
+    public function remove(Accessory $accessory) {
+        $this->getEntityManager()->remove($accessory);
     }
 }
