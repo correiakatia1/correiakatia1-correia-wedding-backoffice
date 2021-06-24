@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AccessoryRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,12 +44,12 @@ class Accessory
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $updateAt;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Color::class, inversedBy="accessories")
@@ -60,10 +61,18 @@ class Accessory
      */
     private $details;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AccessoryImage::class, mappedBy="accessory", orphanRemoval=true)
+     */
+    private $accessoryImages;
+
     public function __construct()
     {
         $this->colors = new ArrayCollection();
         $this->details = new ArrayCollection();
+        $this->accessoryImages = new ArrayCollection();
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -119,26 +128,26 @@ class Accessory
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $createAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -189,5 +198,51 @@ class Accessory
         $this->details->removeElement($detail);
 
         return $this;
+    }
+
+    /**
+     * @return Collection|AccessoryImage[]
+     */
+    public function getAccessoryImages(): Collection
+    {
+        return $this->accessoryImages;
+    }
+
+    public function addAccessoryImage(AccessoryImage $accessoryImage): self
+    {
+        if (!$this->accessoryImages->contains($accessoryImage)) {
+            $this->accessoryImages[] = $accessoryImage;
+            $accessoryImage->setAccessory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccessoryImage(AccessoryImage $accessoryImage): self
+    {
+        if ($this->accessoryImages->removeElement($accessoryImage)) {
+            // set the owning side to null (unless already changed)
+            if ($accessoryImage->getAccessory() === $this) {
+                $accessoryImage->setAccessory(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function resetColor()
+    {
+        $this->colors = new ArrayCollection();
+    }
+
+    public function resetDetails()
+    {
+        $this->details = new ArrayCollection();
+    }
+
+    public function resetImage()
+    {
+        $this->accessoryImages = new ArrayCollection();
     }
 }

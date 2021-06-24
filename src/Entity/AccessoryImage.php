@@ -2,19 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\DressImageRepository;
+use App\Repository\AccessoryImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=DressImageRepository::class)
+ * @ORM\Entity(repositoryClass=AccessoryImageRepository::class)
  */
-class DressImage
+class AccessoryImage
 {
-    public const MIME_TYPES = [
-        'image/png' => 'png',
-        'image/jpeg' => 'jpeg',
-    ];
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,12 +25,13 @@ class DressImage
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=dress::class, inversedBy="dressImages")
+     * @ORM\ManyToOne(targetEntity=Accessory::class, inversedBy="accessoryImages")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $dress;
+    private $accessory;
 
     public function getId(): ?int
     {
@@ -56,25 +52,28 @@ class DressImage
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getDress(): ?dress
+    public function getAccessory(): ?Accessory
     {
-        return $this->dress;
+        return $this->accessory;
     }
 
-    public function setDress(?dress $dress): self
+    public function setAccessory(?Accessory $accessory): self
     {
-        $this->dress = $dress;
+        $this->accessory = $accessory;
 
         return $this;
     }
+
+
+
 }

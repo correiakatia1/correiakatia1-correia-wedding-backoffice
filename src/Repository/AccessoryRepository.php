@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Accessory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,26 @@ class AccessoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Accessory::class);
     }
 
-    // /**
-    //  * @return Accessory[] Returns an array of Accessory objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Accessory $accessory
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function create(Accessory $accessory)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($accessory);
+        $this->getEntityManager()->flush();
     }
-    */
+    public function remove(Accessory $accessory) {
+        $this->getEntityManager()->remove($accessory);
+    }
 
-    /*
-    public function findOneBySomeField($value): ?Accessory
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function flush()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->getEntityManager()->flush();
     }
-    */
 }

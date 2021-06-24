@@ -40,4 +40,12 @@ class DressImageRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->flush();
     }
+
+    /**
+     * @param DressImage $dressImage
+     * @throws ORMException
+     */
+    public function remove(DressImage $dressImage) {
+        $this->getEntityManager()->remove($dressImage);
+    }
 }

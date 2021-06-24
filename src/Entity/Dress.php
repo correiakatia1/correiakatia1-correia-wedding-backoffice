@@ -280,4 +280,9 @@ class Dress
     {
         $this->sizes = new ArrayCollection();
     }
+
+    public function resetImage()
+    {
+        $this->dressImages = new ArrayCollection();
+    }
 }
