@@ -1,0 +1,187 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+    {% if dress.id %}
+        Editar
+    {% else %}
+        Adicionar
+    {% endif %}
+
+    Vestido
+{% endblock %}
+
+{% block pageTitle %}
+    {% if dress.id %}
+        Editar
+    {% else %}
+        Adicionar
+    {% endif %}
+
+    Vestido
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="card card-default">
+        <form method="post">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dress_name">Nome</label>
+                            <input type="text" class="form-control" id="dress_name" name="name"
+                                   placeholder="Adicione um nome" value="{{ dress.name }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select class="form-control select2bs4" name="category">
+                                <option disabled selected>Selecione uma categoria</option>
+                                {% for dressCategory in dressCategories %}
+                                    <option value="{{ dressCategory.id }}"
+                                            {% if dress.dressCategory and dressCategory.id == dress.dressCategory.id %}selected{% endif %}>
+                                        {{ dressCategory.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Detalhes</label>
+                            <select class="select2bs4 w-100" multiple="multiple" name="details[]"
+                                    data-placeholder="Selecione os detalhes">
+                                {% for detail in details %}
+                                    <option value="{{ detail.id }}"
+                                            {% if dress.details and dress.details.contains(detail) %}selected{% endif %}
+                                    >
+                                        {{ detail.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Preço</label>
+                            <input class="form-control" name="price"
+                                   placeholder="Adicione um preço" value="{{ dress.price }}"
+                                   style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <label>Cor</label>
+                            <select class="select2bs4" multiple="multiple" name="colors[]"
+                                    data-placeholder="Selecione uma cor"
+                                    style="width: 100%;">
+                                {% for color in colors %}
+                                    <option value="{{ color.id }}"
+                                            {% if dress.colors and dress.colors.contains(color) %}selected{% endif %}
+                                    >
+                                        {{ color.code }}
+                                    </option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>Tamanho</label>
+                            <select class="select2bs4" multiple="multiple" name="sizes[]"
+                                    data-placeholder="Selecione um tamanho"
+                                    style="width: 100%;">
+                                {% for size in sizes %}
+                                    <option value="{{ size.id }}"
+                                            {% if dress.sizes and dress.sizes.contains(size) %}selected{% endif %}
+                                    >
+                                        {{ size.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <label for="dress_description">Descrição</label>
+                            <textarea class="form-control" id="dress_description" rows="3" name="description"
+                                      placeholder="Adicione uma descrição">{{ dress.description }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if dress.id %}
+                        Guardar
+                    {% else %}
+                        Criar
+                    {% endif %}
+                </button>
+                <a href="{{ path('dress_list') }}" class="btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    {% if dress.id %}
+        <div class="card card-default" id="image-card">
+            <form method="post" action="{{ path('dress_upload_images', {'dressId': dress.id}) }}"
+                  enctype="multipart/form-data">
+                <div class="card-header">
+                    <h3 class="card-title">Imagens do vestido</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    {% for dressImage in dress.dressImages %}
+                                        <div class="col-sm-4">
+                                            <a href="{{ dressImage.name }}"
+                                               data-toggle="lightbox" data-gallery="gallery">
+                                                <img src="{{ dressImage.name }}"
+                                                     class="img-fluid mb-2" alt="white sample"/>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" multiple id="dress-image"
+                                               name="images[]">
+                                        <label class="custom-file-label" for="dress-image">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                    <a href="{{ path('dress_list') }}" class="btn">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <!-- dropzonejs -->
+    <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
+    <script src="{{ asset('custom/js/product/add.js') }}"></script>
+{% endblock %}

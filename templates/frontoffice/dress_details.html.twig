@@ -1,0 +1,174 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block body %}
+    <div id="Content">
+        <div class="content_wrapper clearfix">
+            <div class="sections_group">
+                <div class="entry-content">
+                    <div class="section mcb-section"
+                         style="padding-top:110px; padding-bottom:70px; background-color:#edd9d5; background-image:url(frontoffice/images/home_weddingdresses_bgsection3.png); background-repeat:no-repeat; background-position:center top;">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one valign-top clearfix">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix">
+                                            <h6>VESTIDOS DE NOIVA</h6>
+                                            <h2>Detalhes do vestido</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section mcb-section equal-height-wrap"
+                 style="padding-top:50px; padding-bottom:10px;">
+                <div class="section_wrapper mcb-section-inner">
+                    <div id="page">
+                        <div class="row">
+                            <div class="col-6">
+
+                                <div class="slider slider-single">
+                                    {% for dressImage in dress.dressImages %}
+                                        <div class="">
+                                            <img class="scale-with-grid"
+                                                 src="{{ asset(dressImage.name ) }}"/>
+                                        </div>
+
+                                    {% endfor %}
+                                </div>
+                                <div class="slider slider-nav">
+                                    {% for dressImage in dress.dressImages %}
+                                        <div class="">
+                                            <img class="scale-with-grid"
+                                                 src="{{ asset(dressImage.name ) }}"/>
+                                        </div>
+
+                                    {% endfor %}
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="wrap mcb-wrap one-second valign-middle clearfix" style="padding:0 0 0 5%">
+                                <div class="mcb-wrap-inner details">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix "style="margin-top: 20%">
+                                            <h2>{{ dress.name }}</h2>
+                                            <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                            <h5>{{ dress.dressCategory.name }}</h5>
+                                            <p>
+                                                {{ dress.description }}
+                                            </p>
+                                            <strong><p>{{ dress.price }}€</p></strong>
+
+                                            <strong>Cor</strong>
+                                            <div class="d-flex justify-content-start mb-4">
+                                                {% for color in dress.colors %}
+                                                    <div class="circle-color mx-2"
+                                                         style="background-color: {{ color.code }}"></div>
+                                                {% endfor %}
+
+                                            </div>
+
+                                            <strong>Tamanho </strong>
+                                            <div class="d-flex justify-content-start mb-4">
+                                                {% for size in dress.sizes %}
+                                                    <div class=" tamanho mx-2">{{ size.name }}</div>
+                                                {% endfor %}
+
+                                            </div>
+
+                                            <strong>Detalhes</strong>
+                                            <div class="d-flex justify-content-start mb-4">
+                                                {% for detail in dress.details %}
+                                                    <div class="detalhes mx-2">{{ detail.name }}</div>
+                                                {% endfor %}
+
+                                            </div>
+
+                                            <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                            <a class="button button_size_2 button_theme button_js"
+                                               href="{{ path('front_form', {dressId: dress.id}) }}"><span
+                                                        class="button_label">PEÇA AQUI A SUA MARCAÇÃO</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $('.slider-single').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            fade: false,
+            adaptiveHeight: true,
+            infinite: false,
+            useTransform: true,
+            speed: 400,
+            cssEase: 'cubic-bezier(0.77, 0, 0.18, 1)',
+        });
+
+        $('.slider-nav')
+            .on('init', function (event, slick) {
+                $('.slider-nav .slick-slide.slick-current').addClass('is-active');
+            })
+            .slick({
+                slidesToShow: 7,
+                slidesToScroll: 7,
+                dots: false,
+                focusOnSelect: false,
+                infinite: false,
+                responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 5,
+                    }
+                }, {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                    }
+                }, {
+                    breakpoint: 420,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                    }
+                }]
+            });
+
+        $('.slider-single').on('afterChange', function (event, slick, currentSlide) {
+            $('.slider-nav').slick('slickGoTo', currentSlide);
+            var currrentNavSlideElem = '.slider-nav .slick-slide[data-slick-index="' + currentSlide + '"]';
+            $('.slider-nav .slick-slide.is-active').removeClass('is-active');
+            $(currrentNavSlideElem).addClass('is-active');
+        });
+
+        $('.slider-nav').on('click', '.slick-slide', function (event) {
+            event.preventDefault();
+            var goToSingleSlide = $(this).data('slick-index');
+
+            $('.slider-single').slick('slickGoTo', goToSingleSlide);
+        });
+    </script>
+{% endblock %}

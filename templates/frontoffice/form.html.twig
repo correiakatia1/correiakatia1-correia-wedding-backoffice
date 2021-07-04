@@ -1,0 +1,103 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block body %}
+    <div id="Content">
+        <div class="content_wrapper clearfix">
+            <div class="sections_group">
+                <div class="entry-content">
+                    <div class="section mcb-section"
+                         style="padding-top:110px; padding-bottom:70px; background-color:#edd9d5; background-image:url(frontoffice/images/home_weddingdresses_bgsection3.png); background-repeat:no-repeat; background-position:center top;">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one valign-top clearfix">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix">
+                                            <h6>MARCAÇÃO PARA ESCOLHER</h6>
+                                            <h2>VESTIDO DE NOIVA</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section mcb-section equal-height-wrap"
+                 style="padding-top:50px; padding-bottom:10px;">
+                <div class="section_wrapper mcb-section-inner">
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Nome
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input type="text" class="form-control w-100"
+                                           aria-label="First name" name="name">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Sobrenome
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input type="text" class="form-control w-100"
+                                           aria-label="Last name" name="apelido">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Email
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input type="text" class="form-control w-100"
+                                           aria-label="First name" name="email">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Contacto
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input type="text" class="form-control w-100"
+                                           aria-label="Last name" name="contacto">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Data da Marcação
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input id="date" type="datetime-local" class="form-control w-100"
+                                           aria-label="Last name" name="DataDaMarcação" min="{{ minDate }}T00:00">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Data do Casamento/Cerimónia
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <input id="date" type="date" class="form-control w-100"
+                                           aria-label="Last name" name="DataDoCasamento">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+
+                                    <label for="exampleFormControlTextarea1">Mensagem</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                              placeholder="Escreva a sua mensagem" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button class="button button_size_2 button_theme button_js" type="submit">
+                                    <span class="button_label">Submeter Pedido de Marcação</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

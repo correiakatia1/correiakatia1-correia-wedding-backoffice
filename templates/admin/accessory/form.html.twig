@@ -1,0 +1,175 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+    {% if accessory.id %}
+        Editar
+    {% else %}
+        Adicionar
+    {% endif %}
+
+    Vestido
+{% endblock %}
+
+{#{% block pageTitle %}#}
+{#    Adicionar acessorio#}
+{#{% endblock %}#}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">Acessorios</h3>
+        </div>
+        <form method="post" action="">
+            <!-- /.card-header -->
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label for="dress_name">Nome</label>
+                            <input type="text" class="form-control" id="dress_name" name="name"
+                                   placeholder="Adicione um nome" value="{{ accessory.name }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select class="form-control select2bs4" name="category">
+
+                                <option disabled selected>selecione uma categoria</option>
+                                {% for accessoryCategory in accessoryCategories %}
+                                    <option value="{{ accessoryCategory.id }}"
+                                            {% if accessory.accessoryCategory and accessoryCategory.id == accessory.accessoryCategory.id %}selected{% endif %}>
+                                        {{ accessoryCategory.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Detalhes</label>
+                            <select class="select2bs4" multiple="multiple" name="details[]"
+                                    data-placeholder="Selecione os detalhes"
+                                    style="width: 100%;">
+                                {% for detail in details %}
+                                    <option value="{{ detail.id }}"
+                                            {% if accessory.details and accessory.details.contains(detail) %}selected{% endif %}
+                                    >
+                                        {{ detail.name }}
+                                    </option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Cor</label>
+                            <select class="select2bs4" multiple="multiple" name="colors[]"
+                                    data-placeholder="Selecione uma cor"
+                                    style="width: 100%;">
+                                {% for color in colors %}
+                                    <option value="{{ color.id }}"
+                                            {% if accessory.colors and accessory.colors.contains(color) %}selected{% endif %}
+                                    >
+                                        {{ color.code }}
+                                    </option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>Preço</label>
+                            <input
+                                    class="form-control w-100" name="price"
+                                    placeholder="Select a State">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if accessory.id %}
+                        Guardar
+                    {% else %}
+                        Criar
+                    {% endif %}
+                </button>
+                <a href="{{ path('accessory_list') }}" class="btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    {% if accessory.id %}
+<div class="card card-default" id="image-card">
+    <form method="post" action="{{ path('accessory_upload_images', {'accessoryId': accessory.id}) }}" enctype="multipart/form-data">
+
+        <div class="card-header">
+            <h3 class="card-title">Imagens do acessorio</h3>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            {% for accessoryImage in accessory.accessoryImages %}
+                            <div class="col-sm-4">
+                                <a href="{{ accessoryImage.name }}"
+                                   data-toggle="lightbox" data-gallery="gallery">
+                                    <img src="{{ accessoryImage.name }}"
+                                         class="img-fluid mb-2" alt="white sample"/>
+                                </a>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" multiple id="accessory-image"
+                                       name="images[]">
+                                <label class="custom-file-label" for="accessory-image">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                Guardar
+            </button>
+            <a href="{{ path('accessory_list') }}" class="btn">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <!-- dropzonejs -->
+    <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
+    <script src="{{ asset('custom/js/product/add.js') }}"></script>
+{% endblock %}

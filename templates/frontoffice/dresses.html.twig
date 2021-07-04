@@ -1,0 +1,101 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block body %}
+
+    <div id="Content">
+        <div class="content_wrapper clearfix">
+            <div class="sections_group">
+                <div class="entry-content">
+                    <div class="section mcb-section"
+                         style="padding-top:110px; padding-bottom:70px; background-color:#edd9d5; background-image:url(frontoffice/images/home_weddingdresses_bgsection3.png); background-repeat:no-repeat; background-position:center top;">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one valign-top clearfix">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix">
+                                            <h6>VESTIDOS DE NOIVA</h6>
+                                            <h2>Nossa coleção</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for dress in dresses %}
+                        {% if loop.index % 2 != 0 %}
+                            <div class="section mcb-section equal-height-wrap {% if loop.index > 0 %}section-border-top{% endif %}"
+                                 style="padding-top:50px; padding-bottom:10px;">
+                                <div class="section_wrapper mcb-section-inner">
+                                    <div class="wrap mcb-wrap one-second valign-middle clearfix">
+                                        <div class="mcb-wrap-inner">
+                                            <div class="column mcb-column one column_image">
+                                                <div class="image_frame image_item no_link scale-with-grid no_border">
+                                                    <div class="image_wrapper"><img class="scale-with-grid"
+                                                                                    src="{{ asset(dress.dressImages[0].name) }}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wrap mcb-wrap one-second valign-middle clearfix"
+                                         style="padding:0 0 0 5%">
+                                        <div class="mcb-wrap-inner">
+                                            <div class="column mcb-column one column_column">
+                                                <div class="column_attr clearfix">
+                                                    <h2>{{ dress.name }}</h2>
+                                                    <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                                    <h5>{{ dress.dressCategory.name }}</h5>
+                                                    <p>
+                                                        {{ dress.description }}
+                                                    </p>
+                                                    <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                                    <a class="button button_size_2 button_theme button_js"
+                                                       href="{{ path('front_dress_details', {dressId: dress.id}) }}"><span
+                                                                class="button_label">MAIS INFORMAÇÃO</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="section mcb-section equal-height-wrap section-border-top"
+                                 style="padding-top:50px; padding-bottom:10px;">
+                                <div class="section_wrapper mcb-section-inner">
+                                    <div class="wrap mcb-wrap one-second valign-middle clearfix"
+                                         style="padding:0 5% 0 0">
+                                        <div class="mcb-wrap-inner">
+                                            <div class="column mcb-column one column_column">
+                                                <div class="column_attr clearfix">
+                                                    <h2>{{ dress.name }}</h2>
+                                                    <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                                    <h5>{{ dress.dressCategory.name }}</h5>
+                                                    <p>{{ dress.description }}</p>
+                                                    <hr class="no_line" style="margin: 0 auto 10px;"/>
+                                                    <a class="button button_size_2 button_theme button_js"
+                                                       href="{{ path('front_dress_details', {dressId: dress.id}) }}"><span
+                                                                class="button_label">MAIS INFORMAÇÃO</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wrap mcb-wrap one-second valign-middle clearfix">
+                                        <div class="mcb-wrap-inner">
+                                            <div class="column mcb-column one column_image">
+                                                <div class="image_frame image_item no_link scale-with-grid no_border">
+                                                    <div class="image_wrapper"><img class="scale-with-grid"
+                                                                                    src="{{ asset(dress.dressImages[0].name) }}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
