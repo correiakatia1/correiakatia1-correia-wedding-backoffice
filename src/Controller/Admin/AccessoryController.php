@@ -72,8 +72,8 @@ class AccessoryController extends AbstractController
      */
     public function indexAction(): Response
     {
-        $accessories =$this->accessoryRepository->findAll();
-        return $this->render('admin/accessory/list.html.twig',[
+        $accessories = $this->accessoryRepository->findAll();
+        return $this->render('admin/accessory/list.html.twig', [
             'accessories' => $accessories
         ]);
 
@@ -129,9 +129,9 @@ class AccessoryController extends AbstractController
     /**
      * @Route("/accessory/update/{accessoryId}", name="accessory_update", methods={"GET"})
      */
-    public function updateAction( $accessoryId, Request $request): Response
+    public function updateAction($accessoryId, Request $request): Response
     {
-        $accessory = $this-> accessoryRepository->find( $accessoryId);
+        $accessory = $this->accessoryRepository->find($accessoryId);
 
         $details = $this->detailRepository->findAll();
         $accessoryCategories = $this->accessoryCategoryRepository->findAll();
@@ -139,9 +139,9 @@ class AccessoryController extends AbstractController
 
         return $this->render('admin/accessory/form.html.twig', [
             'details' => $details,
-            'accessoryCategories' =>  $accessoryCategories,
+            'accessoryCategories' => $accessoryCategories,
             'colors' => $colors,
-            'accessory' =>  $accessory,
+            'accessory' => $accessory,
         ]);
     }
 
@@ -176,7 +176,6 @@ class AccessoryController extends AbstractController
         return $this->redirectToRoute('accessory_list');
     }
 
-
     /**
      * @Route("/accessory/{accessoryId}/upload-images", name="accessory_upload_images", methods={"POST"})
      */
@@ -191,7 +190,7 @@ class AccessoryController extends AbstractController
 
             $this->accessoryImageRepository->create($accessoryImage);
 
-            $fileName = $accessoryImage->getId() . '.' . DressImage::MIME_TYPES[$file->getMimeType()];
+            $fileName = $accessoryImage->getId() . '.' . $file->getClientOriginalExtension();
             $file->move(
                 'custom/images/accessory',
                 $fileName
@@ -202,6 +201,27 @@ class AccessoryController extends AbstractController
 
         $this->accessoryImageRepository->flush();
         return $this->redirectToRoute('accessory_update', ['accessoryId' => $accessory->getId()]);
+    }
+
+    /**
+     * @Route("/accessory/{accessoryId}/upload-images/{imageId}/delete", name="accessory_delete_images", methods={"POST"})
+     */
+    public function deleteImage(int $accessoryId, int $imageId)
+    {
+        $accessoryImage = $this->accessoryImageRepository->findOneBy([
+            'accessory' => $accessoryId,
+            'id' => $imageId
+        ]);
+
+        $imagePath = $this->appKernel->getProjectDir() . '/public' . $accessoryImage->getName();
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        $this->accessoryImageRepository->remove($accessoryImage);
+        $this->accessoryImageRepository->flush();
+
+        return $this->redirectToRoute('accessory_update', ['accessoryId' => $accessoryId]);
     }
 
     /**

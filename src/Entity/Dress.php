@@ -71,6 +71,11 @@ class Dress
      */
     private $sizes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Schedule::class, mappedBy="dress", orphanRemoval=true)
+     */
+    private $schedules;
+
     public function __construct()
     {
         $this->colors = new ArrayCollection();
@@ -80,6 +85,7 @@ class Dress
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->sizes = new ArrayCollection();
+        $this->schedules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,5 +290,35 @@ class Dress
     public function resetImage()
     {
         $this->dressImages = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Schedule[]
+     */
+    public function getSchedules(): Collection
+    {
+        return $this->schedules;
+    }
+
+    public function addSchedule(Schedule $schedule): self
+    {
+        if (!$this->schedules->contains($schedule)) {
+            $this->schedules[] = $schedule;
+            $schedule->setDress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchedule(Schedule $schedule): self
+    {
+        if ($this->schedules->removeElement($schedule)) {
+            // set the owning side to null (unless already changed)
+            if ($schedule->getDress() === $this) {
+                $schedule->setDress(null);
+            }
+        }
+
+        return $this;
     }
 }

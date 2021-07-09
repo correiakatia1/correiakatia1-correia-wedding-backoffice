@@ -1167,7 +1167,7 @@ jQuery(document).ready(function() {
 	 * PrettyPhoto
 	 * --------------------------------------------------------------------------- */
 	if ((typeof(window.mfn_prettyphoto) !== 'undefined' && !window.mfn_prettyphoto.disable)) {
-		jQuery('a[rel^="prettyphoto"],a.woocommerce-main-image.zoom, .prettyphoto, a[data-rel^="prettyPhoto[product-gallery]"]').prettyPhoto({
+		jQuery('a[rel^="prettyphoto"],a.woocommerce-main-image.zoom, .prettyphoto, a[data-rel^="prettyPhoto[dress-gallery]"]').prettyPhoto({
 			default_width: window.mfn_prettyphoto.width ? window.mfn_prettyphoto.width : 500,
 			default_height: window.mfn_prettyphoto.height ? window.mfn_prettyphoto.height : 344,
 			show_title: false,
@@ -1483,7 +1483,7 @@ jQuery(document).ready(function() {
 	 * --------------------------------------------------------------------------- */
 	function addToCart() {
 		jQuery('body').on('click', '.add_to_cart_button', function() {
-			jQuery(this).closest('.product').addClass('adding-to-cart').removeClass('added-to-cart');
+			jQuery(this).closest('.dress').addClass('adding-to-cart').removeClass('added-to-cart');
 		});
 		jQuery('body').bind('added_to_cart', function() {
 			jQuery('.adding-to-cart').removeClass('adding-to-cart').addClass('added-to-cart');

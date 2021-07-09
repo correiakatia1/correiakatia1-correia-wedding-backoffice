@@ -1,0 +1,76 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+    Reservas
+{% endblock %}
+
+{% block pageTitle %}
+    Lista de Reservas
+{% endblock %}
+
+ {% block style %}
+     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" xmlns="">
+     <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+     <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+     <link rel="stylesheet" href="/custom/css/style.css">
+
+ {% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            <table id="schedule-table" class="table table-bordered table-striped">
+
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>email</th>
+                    <th>Contacto</th>
+                    <th>Data da Reserva</th>
+                    <th>Data do Casamento</th>
+                    <th>Menssagem</th>
+                    <th>Vestido reservado</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for schedule in  schedules  %}
+
+                    <tr>
+                    <td>{{ schedule.id }}</td>
+                    <td>{{ schedule.name }}</td>
+                    <td>{{ schedule.lastName }}</td>
+                    <td>{{ schedule.email }}</td>
+                    <td>{{ schedule.contact }}</td>
+                    <td>{{ schedule.date.format('d-m-Y H:i') }}</td>
+                    <td>{{ schedule.weddingDate.format('d-m-Y') }}</td>
+                    <td>{{ schedule.message }}</td>
+                    <td>{{ schedule.dress.name }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('custom/js/dress/list.js') }}"></script>
+{% endblock %}

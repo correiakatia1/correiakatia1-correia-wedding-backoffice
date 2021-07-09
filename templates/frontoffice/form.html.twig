@@ -25,7 +25,7 @@
             <div class="section mcb-section equal-height-wrap"
                  style="padding-top:50px; padding-bottom:10px;">
                 <div class="section_wrapper mcb-section-inner">
-                    <form>
+                    <form method="post" action="{{ path('front_schedule', {dressId:dressId}) }}">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -42,7 +42,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <input type="text" class="form-control w-100"
-                                           aria-label="Last name" name="apelido">
+                                           aria-label="Last name" name="last_name">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -60,7 +60,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <input type="text" class="form-control w-100"
-                                           aria-label="Last name" name="contacto">
+                                           aria-label="Last name" name="contact">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -69,7 +69,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <input id="date" type="datetime-local" class="form-control w-100"
-                                           aria-label="Last name" name="DataDaMarcação" min="{{ minDate }}T00:00">
+                                           aria-label="Last name" name="date" min="{{ minDate }}T00:00">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -78,7 +78,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <input id="date" type="date" class="form-control w-100"
-                                           aria-label="Last name" name="DataDoCasamento">
+                                           aria-label="Last name" name="wedding_date">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -86,7 +86,7 @@
 
                                     <label for="exampleFormControlTextarea1">Mensagem</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1"
-                                              placeholder="Escreva a sua mensagem" rows="3"></textarea>
+                                             name="message" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-6">
