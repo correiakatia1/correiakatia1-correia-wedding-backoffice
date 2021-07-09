@@ -90,7 +90,7 @@ class DressController extends AbstractController
     /**
      * @Route("/dress/new", name="dress_new", methods={"GET"})
      */
-    public function newAction(Request $request): Response
+    public function newAction(): Response
     {
         $details = $this->detailRepository->findAll();
         $dressCategories = $this->categoryRepository->findAll();
